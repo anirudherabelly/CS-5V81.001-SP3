@@ -60,6 +60,7 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         if(size==0){
             throw new UnsupportedOperationException("Queue is empty");
         }
+        
         T returnVal = pq[0];
         if(size > 1) {
             pq[0] = pq[size - 1];
@@ -77,6 +78,7 @@ public class BinaryHeap<T extends Comparable<? super T>> {
     void percolateUp(int index) { 
     	int parentIndex = parent(index);
         T temp = pq[index];
+        
         while(index != 0 && comp.compare(pq[parentIndex], temp) > 0){
             pq[index] = pq[parentIndex];
             index = parentIndex;
@@ -91,10 +93,10 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         int rightChildIndex = rightChild(index);
         int temp = index;
         
-        if(leftChildIndex != -1 && comp.compare(this.pq[index], this.pq[leftChildIndex]) > 0) {
+        if(leftChildIndex >= this.size && comp.compare(this.pq[index], this.pq[leftChildIndex]) > 0) {
         	temp = leftChildIndex;
         }
-        if(rightChildIndex != -1 && comp.compare(this.pq[temp], this.pq[rightChildIndex]) > 0) {
+        if(rightChildIndex >= this.size && comp.compare(this.pq[temp], this.pq[rightChildIndex]) > 0) {
         	temp = rightChildIndex;
         }
         
