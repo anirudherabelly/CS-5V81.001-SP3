@@ -101,7 +101,9 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         }
         
         if(temp != index) {
-        	swap(this.pq[temp], this.pq[index]);
+            T tempT = this.pq[temp];
+            this.pq[temp] = this.pq[index];
+            this.pq[index] = tempT;
         	percolateDown(temp);
         }
     }
@@ -121,12 +123,6 @@ public class BinaryHeap<T extends Comparable<? super T>> {
     
     int rightChild(int index) {
     	return 2 * index + 2;
-    }
-    
-    private  void swap(T a, T b) {
-    	T temp = a;
-    	a = b;
-    	b = temp;
     }
     
     // end of functions for team project
