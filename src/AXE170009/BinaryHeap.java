@@ -93,17 +93,15 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         int rightChildIndex = rightChild(index);
         int temp = index;
         
-        if(leftChildIndex >= this.size && comp.compare(this.pq[index], this.pq[leftChildIndex]) > 0) {
+        if(leftChildIndex < this.size && comp.compare(this.pq[index], this.pq[leftChildIndex]) > 0) {
         	temp = leftChildIndex;
         }
-        if(rightChildIndex >= this.size && comp.compare(this.pq[temp], this.pq[rightChildIndex]) > 0) {
+        if(rightChildIndex < this.size && comp.compare(this.pq[temp], this.pq[rightChildIndex]) > 0) {
         	temp = rightChildIndex;
         }
         
         if(temp != index) {
-            T tempT = this.pq[temp];
-            this.pq[temp] = this.pq[index];
-            this.pq[index] = tempT;
+            swap(this.pq, index, temp);
         	percolateDown(temp);
         }
     }
@@ -125,6 +123,11 @@ public class BinaryHeap<T extends Comparable<? super T>> {
     	return 2 * index + 2;
     }
     
+    void swap(T[] arr, int a, int b) {
+    	T temp = arr[a];
+    	arr[a] = arr[b];
+    	arr[b] = temp;
+    }
     // end of functions for team project
 
 

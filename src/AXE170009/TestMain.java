@@ -1,8 +1,5 @@
 package AXE170009;
-//Created by Kautil & Anirudh on 08/25/2018.
-
-import java.lang.reflect.Type;
-import java.util.NoSuchElementException;
+//Created by Kautil & Anirudh on 09/17/2018.
 
 /**
  * This is a driver class that essentially runs tests (like a JUnit test class).
@@ -28,6 +25,7 @@ public class TestMain {
         }
         TestMain tester = new TestMain();
         tester.testAdd();
+        tester.testRemove();
         System.out.println("All Tests passed");
     }
 
@@ -46,7 +44,30 @@ public class TestMain {
         boolean inserted = heap.offer(1);
         assert !inserted;
     }
-
+    
+    private void testRemove() {
+        Integer[] q = new Integer[4];
+        BinaryHeap<Integer> heap = new BinaryHeap<>(q);
+        heap.add(2);
+        heap.add(-2);
+        int removed = heap.remove();
+        assert removed == -2;
+        heap.add(0);
+        heap.add(5);
+        removed = heap.remove();
+        assert removed == 0;
+        heap.add(-3);
+        heap.add(3);
+        removed = heap.remove();
+        assert removed == -3;
+        removed = heap.remove();
+        assert removed == 2;
+        removed = heap.remove();
+        assert removed == 3;
+        removed = heap.remove();
+        assert removed == 5;
+        checkException(()->heap.remove(),UnsupportedOperationException.class);
+    }
     /**
      * Runs the given function inside a try-catch block to capture and assert that NoSuchElementException is raised
      * @param function function that needs to be run inside the try block
