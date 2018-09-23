@@ -18,7 +18,7 @@ public class TestMain {
     public static void main(String[] args) {
         try {
             assert false;
-            System.out.println("Please use the -ea jvm-option. Ex: java -ea pxs176230.TestMain");
+            System.out.println("Please use the -ea jvm-option. Ex: java -ea AXE170009.TestMain");
             System.exit(0);
         }catch (AssertionError error){
             System.out.println("-ea option enabled good to go");
@@ -66,12 +66,13 @@ public class TestMain {
         assert removed == 3;
         removed = heap.remove();
         assert removed == 5;
+        assert heap.poll()==null;
         checkException(()->heap.remove(),UnsupportedOperationException.class);
     }
     /**
-     * Runs the given function inside a try-catch block to capture and assert that NoSuchElementException is raised
+     * Runs the given function inside a try-catch block to capture and assert that given exception is raised
      * @param function function that needs to be run inside the try block
-     * @param expectedEx the class type the function should throw
+     * @param expectedEx the exception class type the function should throw
      */
     private void checkException(Runnable function, Class<?> expectedEx){
         try {

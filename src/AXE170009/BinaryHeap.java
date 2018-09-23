@@ -9,14 +9,21 @@ public class BinaryHeap<T extends Comparable<? super T>> {
     Comparator<T> comp;
     private int size;
     private int capacity;
-    
-    // Constructor for building an empty priority queue using natural ordering of T
+
+    /**
+     * Constructor for building an empty priority queue using natural ordering of T
+     * @param q array to store priority queue
+     */
     public BinaryHeap(T[] q) {
     	// Use a lambda expression to create comparator from compareTo
 	    this(q, (T a, T b) -> a.compareTo(b));
     }
 
-    // Constructor for building an empty priority queue with custom comparator
+    /**
+     * Constructor for building an empty priority queue with custom comparator
+     * @param q array to store priority queue
+     * @param c comparator to specify ordering between elements
+     */
     public BinaryHeap(T[] q, Comparator<T> c) {
 	    pq = q;
 	    comp = c;
@@ -35,14 +42,24 @@ public class BinaryHeap<T extends Comparable<? super T>> {
 	    // You need to add more code here to build queue
     }
 
-    public void add(T x) { /* throw exception if pq is full */
+    /**
+     * adds the new element to the priority queue
+     * @param x element to be added
+     * @throws UnsupportedOperationException when queue is full
+     */
+    public void add(T x) {
         boolean isInserted = offer(x);
         if(!isInserted){
             throw new UnsupportedOperationException("Queue is full");
         }
     }
 
-    public boolean offer(T x) { /* return false if pq is full */
+    /**
+     * add a new element to the priority queue
+     * @param x element to be added
+     * @return returns false if pq is full, true otherwise
+     */
+    public boolean offer(T x) {
         if(size == capacity){
             return false;
         }
@@ -52,13 +69,26 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         return true;
     }
 
+    /**
+     * removes and returns the top most element from the priority queue
+     * @return element with the max priority of the queue
+     * @throws UnsupportedOperationException when called on empty queue.
+     */
     public T remove() { /* throw exception if pq is empty */
-	    return poll();
+	    T returnVal = poll();
+	    if(returnVal==null){
+            throw new UnsupportedOperationException("Queue is empty");
+        }
+        return returnVal;
     }
 
-    public T poll() { /* return null if pq is empty */
+    /**
+     * removes and returns the top most element from the priority queue
+     * @return element with the max priority of the queue or null is queue is empty
+     */
+    public T poll() {
         if(size==0){
-            throw new UnsupportedOperationException("Queue is empty");
+            return null;
         }
         
         T returnVal = pq[0];
@@ -70,12 +100,21 @@ public class BinaryHeap<T extends Comparable<? super T>> {
 	    return returnVal;
     }
 
+    /**
+     * returns the top most element from the queue.
+     * @return top most element of the heap or null if empty
+     */
     public T peek() { /* return null if pq is empty */
         return size == 0 ? null : pq[0];
     }
 
-    /** pq[i] may violate heap order with parent */
-    void percolateUp(int index) { 
+    /**
+     * pq[i] may violate heap order with parent.
+     * This method rearranges the required elements in the heap so that order constraint is met
+     * by sending the elements with higher priority to upper parts of the heap
+     * @param index index from which structure has to be rearranged
+     */
+    private void percolateUp(int index) {
     	int parentIndex = parent(index);
         T temp = pq[index];
         
@@ -87,8 +126,13 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         pq[index] = temp;
     }
 
-    /** pq[i] may violate heap order with children */
-    void percolateDown(int index) {
+    /**
+     * pq[i] may violate heap order with children.
+     * This method rearranges the required elements in the heap so that order constraint is met
+     * by sending the elements with lower priority to bottom parts of the heap
+     * @param index index from which structure has to be rearranged
+     */
+    private void percolateDown(int index) {
         int leftChildIndex = leftChild(index);
         int rightChildIndex = rightChild(index);
         int temp = index;
@@ -101,32 +145,49 @@ public class BinaryHeap<T extends Comparable<? super T>> {
         }
         
         if(temp != index) {
-            swap(this.pq, index, temp);
+            swap(index, temp);
         	percolateDown(temp);
         }
     }
-    
-    // Assign x to pq[i].  Indexed heap will override this method
-    void move(int index, T x) {
+
+    /**
+     * Assign x to pq[i].  Indexed heap will override this method
+     */
+    public void move(int index, T x) {
 	    pq[index] = x;
     }
 
-    int parent(int index) {
+    /**
+     * returns the index of parent of the element at given index
+     * @return index of parent node
+     */
+    private int parent(int index) {
 	    return (index - 1) / 2;
     }
 
-    int leftChild(int index) {
+    /**
+     * returns the index of left child of the element at given index
+     * @return index of left child
+     */
+    private int leftChild(int index) {
 	    return 2 * index + 1;
     }
-    
-    int rightChild(int index) {
+
+    /**
+     * returns the index of left child of the element at given index
+     * @return index of left child
+     */
+    private int rightChild(int index) {
     	return 2 * index + 2;
     }
-    
-    void swap(T[] arr, int a, int b) {
-    	T temp = arr[a];
-    	arr[a] = arr[b];
-    	arr[b] = temp;
+
+    /**
+     * Util function to swap elements
+     */
+    private void swap(int a, int b) {
+    	T temp = pq[a];
+    	pq[a] = pq[b];
+    	pq[b] = temp;
     }
     // end of functions for team project
 
