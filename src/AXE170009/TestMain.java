@@ -41,7 +41,10 @@ public class TestMain {
         heap.add(-2);
         assert heap.peek()==-2;
         checkException(()->heap.add(1),UnsupportedOperationException.class);
+        checkException(()->heap.add(null),IllegalArgumentException.class);
         boolean inserted = heap.offer(1);
+        assert !inserted;
+        inserted = heap.offer(null);
         assert !inserted;
     }
     

@@ -46,8 +46,12 @@ public class BinaryHeap<T extends Comparable<? super T>> {
      * adds the new element to the priority queue
      * @param x element to be added
      * @throws UnsupportedOperationException when queue is full
+     * @throws IllegalArgumentException when x is null
      */
     public void add(T x) {
+        if(x == null){
+            throw new IllegalArgumentException("Input element can't be null");
+        }
         boolean isInserted = offer(x);
         if(!isInserted){
             throw new UnsupportedOperationException("Queue is full");
@@ -57,9 +61,12 @@ public class BinaryHeap<T extends Comparable<? super T>> {
     /**
      * add a new element to the priority queue
      * @param x element to be added
-     * @return returns false if pq is full, true otherwise
+     * @return returns false if pq is full or if x is empty, true otherwise
      */
     public boolean offer(T x) {
+        if(x==null){
+            return false;
+        }
         if(size == capacity){
             return false;
         }
