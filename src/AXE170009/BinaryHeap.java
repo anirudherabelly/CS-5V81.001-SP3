@@ -13,10 +13,10 @@ import java.util.Iterator;
  * @author Kautil
  */
 public class BinaryHeap<T extends Comparable<? super T>> {
-    T[] pq;
-    Comparator<T> comp;
-    private int size;
-    private int capacity;
+    T[] pq; //array to store the elements
+    Comparator<T> comp; //comparator for comparing element of type T
+    private int size; //current size of heap
+    private int capacity; //max size of heap
 
     /**
      * Constructor for building an empty priority queue using natural ordering of T
