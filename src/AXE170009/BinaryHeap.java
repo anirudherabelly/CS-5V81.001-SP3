@@ -4,6 +4,14 @@ package AXE170009;
 import java.util.Comparator;
 import java.util.Iterator;
 
+/**
+ * Implementation of the BinaryHeap data structure that maintains
+ * the highest priority element at the root.
+ * It is a balanced binary tree where all the children below a node are less than or equal to current node.
+ * @param <T> Type of the Elements to be stored
+ * @author Anirudh
+ * @author Kautil
+ */
 public class BinaryHeap<T extends Comparable<? super T>> {
     T[] pq;
     Comparator<T> comp;
